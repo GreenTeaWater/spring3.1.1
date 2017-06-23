@@ -659,7 +659,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 	 * @param beanName the name of the bean to reset
 	 */
 	protected void resetBeanDefinition(String beanName) {
-		// Remove the merged bean definition for the given bean, if already created.
+		// Remove the merged bean definition for the given bean, if already created.[如果已经创建，则删除给定bean的bean定义]
 		clearMergedBeanDefinition(beanName);
 
 		// Remove corresponding bean from singleton cache, if any. Shouldn't usually
