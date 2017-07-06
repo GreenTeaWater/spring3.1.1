@@ -424,6 +424,12 @@ public abstract class ReflectionUtils {
 	}
 
 	/**
+	 * 
+	 * 判断类的构造方法能够 或 类修饰符是否是公开的
+	 * 如果不是则设置Accessible为true，
+	 * 
+	 * 将此对象的 accessible 标志设置为指示的布尔值。值为 true 则指示反射的对象在使用时应该取消 Java 语言访问检查。
+	 * 值为 false 则指示反射的对象应该实施 Java 语言访问检查。 总结：这个设置很变态
 	 * Make the given constructor accessible, explicitly setting it accessible
 	 * if necessary. The <code>setAccessible(true)</code> method is only called
 	 * when actually necessary, to avoid unnecessary conflicts with a JVM

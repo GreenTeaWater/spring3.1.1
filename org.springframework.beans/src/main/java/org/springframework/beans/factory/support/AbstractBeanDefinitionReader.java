@@ -47,13 +47,14 @@ public abstract class AbstractBeanDefinitionReader implements EnvironmentCapable
 
 	/** Logger available to subclasses */
 	protected final Log logger = LogFactory.getLog(getClass());
-
+	//XmlBeanDefinitionReader构造初始化时 DefaultListableBeanFactory
 	private final BeanDefinitionRegistry registry;
-
+	//
+	//set值为xmlWebApplicationContext
 	private ResourceLoader resourceLoader;
 
 	private ClassLoader beanClassLoader;
-
+	//XmlBeanDefinitionReader构造后set入值 StandardServletEnvironment
 	private Environment environment = new StandardEnvironment();
 
 	private BeanNameGenerator beanNameGenerator = new DefaultBeanNameGenerator();
@@ -204,7 +205,7 @@ public abstract class AbstractBeanDefinitionReader implements EnvironmentCapable
 
 		if (resourceLoader instanceof ResourcePatternResolver) {
 			// Resource pattern matching available.
-			try {
+			try {//将contextConfigLocation中配置的配置文件路径加载为UrlResource数组返回
 				Resource[] resources = ((ResourcePatternResolver) resourceLoader).getResources(location);
 				int loadCount = loadBeanDefinitions(resources);
 				if (actualResources != null) {

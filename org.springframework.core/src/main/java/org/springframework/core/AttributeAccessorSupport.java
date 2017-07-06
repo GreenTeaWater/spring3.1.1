@@ -34,7 +34,10 @@ import org.springframework.util.Assert;
  */
 public abstract class AttributeAccessorSupport implements AttributeAccessor, Serializable {
 
-	/** Map with String keys and Object values */
+	/** Map with String keys and Object values 
+	 * bean的属性集合
+	 * 
+	 * */
 	private final Map<String, Object> attributes = new LinkedHashMap<String, Object>(0);
 
 

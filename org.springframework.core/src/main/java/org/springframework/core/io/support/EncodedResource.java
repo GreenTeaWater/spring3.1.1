@@ -36,7 +36,7 @@ import org.springframework.util.ObjectUtils;
  * @see java.io.Reader
  */
 public class EncodedResource {
-
+	//实际是UrlResource
 	private final Resource resource;
 
 	private final String encoding;

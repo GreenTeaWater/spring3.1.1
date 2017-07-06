@@ -24,8 +24,6 @@ import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.ArrayList;
@@ -38,6 +36,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+
 import javax.inject.Provider;
 
 import org.springframework.beans.BeansException;
@@ -111,11 +110,16 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 	}
 
 
-	/** Map from serialized id to factory instance */
+	/** Map from serialized id to factory instance 
+	 *  
+	 * add  org.springframework.web.context.WebApplicationContext:/learn-framework : new WeakReference<DefaultListableBeanFactory>(this)  this=DefaultListableBeanFactory
+	 * */
 	private static final Map<String, Reference<DefaultListableBeanFactory>> serializableFactories =
 			new ConcurrentHashMap<String, Reference<DefaultListableBeanFactory>>();
 
-	/** Optional id for this factory, for serialization purposes */
+	/** Optional id for this factory, for serialization purposes 
+	 * 创建时初始化 ObjectUtils.identityToString(this); this = XmlwebApplicationContext
+	 * */
 	private String serializationId;
 
 	/** Whether to allow re-registration of a different definition with the same name */
@@ -124,22 +128,35 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 	/** Whether to allow eager class loading even for lazy-init beans */
 	private boolean allowEagerClassLoading = true;
 
-	/** Resolver to use for checking if a bean definition is an autowire candidate */
+	/** Resolver to use for checking if a bean definition is an autowire candidate 
+	 * 创建后初始化为 new QualifierAnnotationAutowireCandidateResolver()
+	 * */
 	private AutowireCandidateResolver autowireCandidateResolver = new SimpleAutowireCandidateResolver();
 
-	/** Map from dependency type to corresponding autowired value */
+	/** Map from dependency type to corresponding autowired value 
+	 * add 元素 [BeanFactory.class : DefaultListableBeanFactory]
+	 * add 元素 [ResourceLoader.class : XmlWebApplicationContext]
+	 * add 元素 [ApplicationEventPublisher.class : XmlWebApplicationContext]
+	 * add 元素 [ApplicationContext.class : XmlWebApplicationContext]
+	 * 
+	 * add 元素 [ServletRequest.class : new RequestObjectFactory()]
+	 * add 元素 [HttpSession.class : new SessionObjectFactory()]
+	 * add 元素 [WebRequest.class : new WebRequestObjectFactory()]
+	 * */
 	private final Map<Class, Object> resolvableDependencies = new HashMap<Class, Object>();
 
-	/** Map of bean definition objects, keyed by bean name */
+	/** Map of bean definition objects, keyed by bean name 
+	 * 最终存放bean实例的MAP集合，存的实例对象为 BeanDefinition子类GenericBeanDefinition
+	 * */
 	private final Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<String, BeanDefinition>();
 
 	/** List of bean definition names, in registration order */
 	private final List<String> beanDefinitionNames = new ArrayList<String>();
 
-	/** Whether bean definition metadata may be cached for all beans */
+	/** Whether bean definition metadata may be cached for all beans  设置为true */
 	private boolean configurationFrozen = false;
 
-	/** Cached array of bean definition names in case of frozen configuration */
+	/** Cached array of bean definition names in case of frozen configuration   将beanDefinitionNames装换为数组*/
 	private String[] frozenBeanDefinitionNames;
 
 
@@ -302,7 +319,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 		List<String> result = new ArrayList<String>();
 
 		// Check all bean definitions.
-		String[] beanDefinitionNames = getBeanDefinitionNames();
+		String[] beanDefinitionNames = getBeanDefinitionNames();  //查询所有spring管理的beanDefinition定义
 		for (String beanName : beanDefinitionNames) {
 			// Only consider bean as eligible if the bean name
 			// is not defined as alias for some other bean.
@@ -393,11 +410,11 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 	public <T> Map<String, T> getBeansOfType(Class<T> type, boolean includeNonSingletons, boolean allowEagerInit)
 			throws BeansException {
 
-		String[] beanNames = getBeanNamesForType(type, includeNonSingletons, allowEagerInit);
+		String[] beanNames = getBeanNamesForType(type, includeNonSingletons, allowEagerInit); //查询出type类的子类
 		Map<String, T> result = new LinkedHashMap<String, T>(beanNames.length);
 		for (String beanName : beanNames) {
 			try {
-				result.put(beanName, getBean(beanName, type));
+				result.put(beanName, getBean(beanName, type));//*******getBean    里面实例化了spring管理的bean
 			}
 			catch (BeanCreationException ex) {
 				Throwable rootCause = ex.getMostSpecificCause();

@@ -40,7 +40,8 @@ import org.springframework.util.StringUtils;
  */
 public class DefaultResourceLoader implements ResourceLoader {
 
-	private ClassLoader classLoader;
+	//xmlWebApplicationContext构造初始化 WebappClassLoader
+	private ClassLoader classLoader; 
 
 
 	/**

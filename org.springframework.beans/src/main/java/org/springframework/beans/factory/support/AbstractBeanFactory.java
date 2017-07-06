@@ -113,22 +113,29 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	/** Parent bean factory, for bean inheritance support 目前是null*/
 	private BeanFactory parentBeanFactory;
 
-	/** ClassLoader to resolve bean class names with, if necessary */
+	/** ClassLoader to resolve bean class names with, if necessary 
+	 * set值为 WebappClassLoader
+	 * */
 	private ClassLoader beanClassLoader = ClassUtils.getDefaultClassLoader();
 
-	/** ClassLoader to temporarily resolve bean class names with, if necessary */
+	/** ClassLoader to temporarily resolve bean class names with, if necessary  set为null*/
 	private ClassLoader tempClassLoader;
 
 	/** Whether to cache bean metadata or rather reobtain it for every access */
 	private boolean cacheBeanMetadata = true;
 
-	/** Resolution strategy for expressions in bean definition values */
+	/** Resolution strategy for expressions in bean definition values 
+	 * set值为 new StandardBeanExpressionResolver()
+	 * */
 	private BeanExpressionResolver beanExpressionResolver;
 
 	/** Spring 3.0 ConversionService to use instead of PropertyEditors */
 	private ConversionService conversionService;
 
-	/** Custom PropertyEditorRegistrars to apply to the beans of this factory */
+	/** Custom PropertyEditorRegistrars to apply to the beans of this factory 
+	 * 
+	 * add 添加元素  new ResourceEditorRegistrar(this, this.getEnvironment())  [xmlwebApplicationContext] [StandardServletEnvironment]
+	 * */
 	private final Set<PropertyEditorRegistrar> propertyEditorRegistrars =
 			new LinkedHashSet<PropertyEditorRegistrar>(4);
 
@@ -142,7 +149,15 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	/** String resolvers to apply e.g. to annotation attribute values */
 	private final List<StringValueResolver> embeddedValueResolvers = new LinkedList<StringValueResolver>();
 
-	/** BeanPostProcessors to apply in createBean */
+	/** BeanPostProcessors to apply in createBean
+	 * add 元素  new ApplicationContextAwareProcessor(this) [xmlwebApplicationContext]  AbstractApplicationContext.refresh中prepareBeanFactory方法内
+	 * add 元素  new ServletContextAwareProcessor(this.servletContext, this.servletConfig)  [servletContext , null]  AbstractApplicationContext.refresh中postProcessBeanFactory方法内
+	 * 
+	 * add 元素 new BeanPostProcessorChecker(beanFactory, beanProcessorTargetCount) beanProcessorTargetCount= beanFactory.getBeanPostProcessorCount() + 1 + postProcessorNames.length
+	 * add 元素  实现了beanPostProcessor接口的类
+	 * add 元素 new ApplicationListenerDetector()
+	 * 
+	 *  */
 	private final List<BeanPostProcessor> beanPostProcessors = new ArrayList<BeanPostProcessor>();
 
 	/** Indicates whether any InstantiationAwareBeanPostProcessors have been registered */
@@ -151,7 +166,13 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	/** Indicates whether any DestructionAwareBeanPostProcessors have been registered */
 	private boolean hasDestructionAwareBeanPostProcessors;
 
-	/** Map from scope identifier String to corresponding Scope */
+	/** Map from scope identifier String to corresponding Scope 
+	 * 
+	 * add 元素 [request :  new RequestScope()]
+	 * add 元素 [session : new SessionScope(false)]
+	 * add 元素 [globalSession : new SessionScope(true)]
+	 * add 元素 [application : new ServletContextScope(sc)]      sc=ApplicationContextFacade
+	 * */
 	private final Map<String, Scope> scopes = new HashMap<String, Scope>();
 
 	/** Security context used when running with a SecurityManager */

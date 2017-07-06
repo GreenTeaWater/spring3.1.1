@@ -35,9 +35,9 @@ import org.springframework.core.io.ResourceLoader;
  * @since 2.0
  */
 public class XmlReaderContext extends ReaderContext {
-
+	//构造初始化为XmlBeanDefinitionReader
 	private final XmlBeanDefinitionReader reader;
-
+	//构造初始化为DefaultNamespaceHandlerResolver
 	private final NamespaceHandlerResolver namespaceHandlerResolver;
 
 

@@ -35,7 +35,7 @@ import org.springframework.context.NoSuchMessageException;
  * @see AbstractApplicationContext
  */
 public class DelegatingMessageSource extends MessageSourceSupport implements HierarchicalMessageSource {
-
+	//赋值为null parent()
 	private MessageSource parentMessageSource;
 
 

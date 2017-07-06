@@ -26,6 +26,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.ui.context.Theme;
 import org.springframework.ui.context.ThemeSource;
+import org.springframework.ui.context.support.ResourceBundleThemeSource;
 import org.springframework.ui.context.support.UiApplicationContextUtils;
 import org.springframework.web.context.ConfigurableWebApplicationContext;
 import org.springframework.web.context.ServletConfigAware;
@@ -78,7 +79,9 @@ import org.springframework.web.context.ServletContextAware;
 public abstract class AbstractRefreshableWebApplicationContext extends AbstractRefreshableConfigApplicationContext
 		implements ConfigurableWebApplicationContext, ThemeSource {
 
-	/** Servlet context that this context runs in */
+	/** Servlet context that this context runs in 
+	 * ContextLoader.configureAndRefreshWebApplicationContext方法中赋值  ApplicationContextFacade（当前tomcat容器servletContext）
+	 * */
 	private ServletContext servletContext;
 
 	/** Servlet config that this context runs in, if any */
@@ -87,7 +90,10 @@ public abstract class AbstractRefreshableWebApplicationContext extends AbstractR
 	/** Namespace of this context, or <code>null</code> if root */
 	private String namespace;
 
-	/** the ThemeSource for this ApplicationContext */
+	/** the ThemeSource for this ApplicationContext
+	 * 
+	 * 初始化   new ResourceBundleThemeSource()
+	 *  */
 	private ThemeSource themeSource;
 
 

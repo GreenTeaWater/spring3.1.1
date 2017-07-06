@@ -27,13 +27,13 @@ import org.springframework.core.io.Resource;
  * @since 2.0
  */
 public class ReaderContext {
-
+	//XmlReaderContext构造初始化 UrlResource 
 	private final Resource resource;
-
+	//XmlReaderContext构造初始化FailFastProblemReporter
 	private final ProblemReporter problemReporter;
-
+	//XmlReaderContext构造初始化EmptyReaderEventListener
 	private final ReaderEventListener eventListener;
-
+	//XmlReaderContext构造初始化null
 	private final SourceExtractor sourceExtractor;
 
 

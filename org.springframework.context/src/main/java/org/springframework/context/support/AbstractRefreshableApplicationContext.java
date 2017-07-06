@@ -25,6 +25,7 @@ import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextException;
 import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
+import org.springframework.util.ObjectUtils;
 
 /**
  * Base class for {@link org.springframework.context.ApplicationContext}
@@ -69,7 +70,9 @@ public abstract class AbstractRefreshableApplicationContext extends AbstractAppl
 
 	private Boolean allowCircularReferences;
 
-	/** Bean factory for this context */
+	/** Bean factory for this context
+	 * refreshBeanFactory创建bean后将beanFactory赋予此属性
+	 *  */
 	private DefaultListableBeanFactory beanFactory;
 
 	/** Synchronization monitor for the internal BeanFactory */
@@ -125,9 +128,9 @@ public abstract class AbstractRefreshableApplicationContext extends AbstractAppl
 			closeBeanFactory();
 		}
 		try {
-			DefaultListableBeanFactory beanFactory = createBeanFactory();
-			beanFactory.setSerializationId(getId());
-			customizeBeanFactory(beanFactory);// 配置BeanFactory,将Qualifier加去BeanFactory属性的autowireCandidateResolver
+			DefaultListableBeanFactory beanFactory = createBeanFactory();//new DefaultListableBeanFactory(父null)
+			beanFactory.setSerializationId(getId());//ObjectUtils.identityToString(this);
+			customizeBeanFactory(beanFactory);// 配置BeanFactory,将Qualifier加入BeanFactory属性的autowireCandidateResolver，创建了QualifierAnnotationAutowireCandidateResolver
 			loadBeanDefinitions(beanFactory);
 			synchronized (this.beanFactoryMonitor) {
 				this.beanFactory = beanFactory;

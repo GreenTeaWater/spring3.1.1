@@ -132,7 +132,7 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 	 */
 	public static final String INFER_METHOD = "(inferred)";
 
-
+	// GenericBeanDefinition.setBeanClass
 	private volatile Object beanClass;
 
 	private String scope = SCOPE_DEFAULT;

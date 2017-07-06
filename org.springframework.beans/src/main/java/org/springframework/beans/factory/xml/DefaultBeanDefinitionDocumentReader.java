@@ -77,11 +77,11 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 
 
 	protected final Log logger = LogFactory.getLog(getClass());
-
+	//调用registerBeanDefinitions方式赋值 XmlReaderContext
 	private XmlReaderContext readerContext;
 
 	private Environment environment;
-
+	//doRegisterBeanDefinitions方式创建new
 	private BeanDefinitionParserDelegate delegate;
 
 
@@ -308,18 +308,19 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 	 * and registering it with the registry.
 	 */
 	protected void processBeanDefinition(Element ele, BeanDefinitionParserDelegate delegate) {
-		BeanDefinitionHolder bdHolder = delegate.parseBeanDefinitionElement(ele);
+		//解析xml中元素标签，将每一个bean封装成一个GenericBeanDefinition对象，再将GenericBeanDefinition对象set进BeanDefinitionHolder对象返回
+		BeanDefinitionHolder bdHolder = delegate.parseBeanDefinitionElement(ele); 
 		if (bdHolder != null) {
 			bdHolder = delegate.decorateBeanDefinitionIfRequired(ele, bdHolder);
 			try {
-				// Register the final decorated instance.
+				// Register the final decorated instance.   将GenericBeanDefinition注册进DefaultListableBeanFactory  bean工厂中
 				BeanDefinitionReaderUtils.registerBeanDefinition(bdHolder, getReaderContext().getRegistry());
 			}
 			catch (BeanDefinitionStoreException ex) {
 				getReaderContext().error("Failed to register bean definition with name '" +
 						bdHolder.getBeanName() + "'", ele, ex);
 			}
-			// Send registration event.[发送注册事件]
+			// Send registration event.[发送注册事件]     空的
 			getReaderContext().fireComponentRegistered(new BeanComponentDefinition(bdHolder));
 		}
 	}

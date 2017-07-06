@@ -60,7 +60,9 @@ public class DefaultNamespaceHandlerResolver implements NamespaceHandlerResolver
 	/** ClassLoader to use for NamespaceHandler classes */
 	private final ClassLoader classLoader;
 
-	/** Resource location to search for */
+	/** Resource location to search for 
+	 * 初始化为 META-INF/spring.handlers
+	 * */
 	private final String handlerMappingsLocation;
 
 	/** Stores the mappings from namespace URI to NamespaceHandler class name / instance */

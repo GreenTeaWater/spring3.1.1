@@ -52,11 +52,12 @@ import org.springframework.util.ObjectUtils;
  * @see Value
  */
 public class QualifierAnnotationAutowireCandidateResolver implements AutowireCandidateResolver, BeanFactoryAware {
-
+	//构造时add qualifierTypes.class
 	private final Set<Class<? extends Annotation>> qualifierTypes = new LinkedHashSet<Class<? extends Annotation>>();
 
 	private Class<? extends Annotation> valueAnnotationType = Value.class;
 
+	//初始化为this  DefaultListableBeanFactory
 	private BeanFactory beanFactory;
 
 

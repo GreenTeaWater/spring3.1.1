@@ -79,6 +79,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
+import org.springframework.ui.context.support.ResourceBundleThemeSource;
 import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
 
@@ -163,10 +164,14 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	/** Unique id for this context, if any */
 	private String id = ObjectUtils.identityToString(this);
 
-	/** Display name */
+	/** Display name   
+	 * XmlWebApplicationContext构造初始化 XmlWebApplicationContext
+	 * */
 	private String displayName = ObjectUtils.identityToString(this);
 
-	/** Parent context */
+	/** Parent context
+	 *  XmlWebApplicationContext构造初始化 null
+	 *  */
 	private ApplicationContext parent;
 
 	/** BeanFactoryPostProcessors to apply on refresh */
@@ -191,22 +196,34 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	/** Reference to the JVM shutdown hook, if registered */
 	private Thread shutdownHook;
 
-	/** ResourcePatternResolver used by this context */
+	/** ResourcePatternResolver used by this context 
+	 * XmlWebApplicationContext构造初始化时赋值  PathMatchingResourcePatternResolver(this)
+	 * */
 	private ResourcePatternResolver resourcePatternResolver;
 
 	/** LifecycleProcessor for managing the lifecycle of beans within this context */
 	private LifecycleProcessor lifecycleProcessor;
 
-	/** MessageSource we delegate our implementation of this interface to */
+	/** MessageSource we delegate our implementation of this interface to 
+	 * 赋值
+	 * DelegatingMessageSource dms = new DelegatingMessageSource();
+		dms.setParentMessageSource(getInternalParentMessageSource());  //getInternalParentMessageSource() = null
+		 
+		messageSource = dms
+	 * */
 	private MessageSource messageSource;
 
-	/** Helper class used in event publishing */
+	/** Helper class used in event publishing 
+	 * 初始化为 new SimpleApplicationEventMulticaster(beanFactory);
+	 * */
 	private ApplicationEventMulticaster applicationEventMulticaster;
 
 	/** Statically specified listeners */
 	private Set<ApplicationListener<?>> applicationListeners = new LinkedHashSet<ApplicationListener<?>>();
 
-	/** Environment used by this context; initialized by {@link #createEnvironment()} */
+	/** Environment used by this context; initialized by {@link #createEnvironment()} 
+	 * XmlWebApplicationContext构造初始化时赋值 new StandardEnvironment()
+	 * */
 	private ConfigurableEnvironment environment;
 
 
@@ -435,31 +452,34 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 			// Tell the subclass to refresh the internal bean factory.
 			//[主要是创建beanFactory，同时加载配置文件.xml中的beanDefinition]
 			//[通过String[] configLocations = getConfigLocations()获取资源路径，然后加载]
+			//只解析import、alias、bean、beans 四个标签
 			ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();
 
 			// Prepare the bean factory for use in this context.
-			//[给beanFactory注册一些标准组建，如ClassLoader，StandardEnvironment，BeanProcess  ,在此上下文中准备bean工厂。]
+			//往beanFactory中set各中值
 			prepareBeanFactory(beanFactory);
 
 			try {
 				// Allows post-processing of the bean factory in context subclasses.[允许bean工厂在上下文子类中的后处理。]
 				postProcessBeanFactory(beanFactory);
 
-				// Invoke factory processors registered as beans in the context.[在上下文中调用工厂处理注册bean]
-				//调用所有BeanFactoryProcessor的postProcessBeanFactory()方法
+				// Invoke factory processors registered as beans in the context.
+				//执行实现spring框架中*BeanDefinitionRegistryPostProcessor.class和BeanFactoryPostProcessor.class接口的实现方法，拦截bean的创建（zfx）
 				invokeBeanFactoryPostProcessors(beanFactory);
 
 				// Register bean processors that intercept bean creation.[注册BeanPostProcessor，BeanPostProcessor作用是用于拦截Bean的创建  ]
 				registerBeanPostProcessors(beanFactory);
 
 				// Initialize message source for this context.[为该上下文初始化消息源]
+				//给  AbstractApplicationContext.messageSource属性赋值
 				initMessageSource();
 
 				// Initialize event multicaster for this context.
 				//[初始化上下文中的事件传播[ApplicationEvent触发时由multicaster通知给ApplicationListener  ]]
+				//注册 applicationEventMulticaster到beanFactory
 				initApplicationEventMulticaster();
 
-				// Initialize other special beans in specific context subclasses.[ApplicationContext初始化一些特殊的bean  ]
+				// Initialize other special beans in specific context subclasses.//赋值 new ResourceBundleThemeSource()
 				onRefresh();
 
 				// Check for listener beans and register them.[注册事件监听器，事件监听Bean统一注册到multicaster里头，ApplicationEvent事件触发后会由multicaster广播  ]
@@ -599,10 +619,11 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		Set<String> processedBeans = new HashSet<String>();
 		if (beanFactory instanceof BeanDefinitionRegistry) {
 			BeanDefinitionRegistry registry = (BeanDefinitionRegistry) beanFactory;
+			
 			List<BeanFactoryPostProcessor> regularPostProcessors = new LinkedList<BeanFactoryPostProcessor>();
-			List<BeanDefinitionRegistryPostProcessor> registryPostProcessors =
-					new LinkedList<BeanDefinitionRegistryPostProcessor>();
-			for (BeanFactoryPostProcessor postProcessor : getBeanFactoryPostProcessors()) {
+			List<BeanDefinitionRegistryPostProcessor> registryPostProcessors = new LinkedList<BeanDefinitionRegistryPostProcessor>();
+			
+			for (BeanFactoryPostProcessor postProcessor : getBeanFactoryPostProcessors()) {//空
 				if (postProcessor instanceof BeanDefinitionRegistryPostProcessor) {
 					BeanDefinitionRegistryPostProcessor registryPostProcessor =
 							(BeanDefinitionRegistryPostProcessor) postProcessor;
@@ -615,13 +636,14 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 			}
 			Map<String, BeanDefinitionRegistryPostProcessor> beanMap =
 					beanFactory.getBeansOfType(BeanDefinitionRegistryPostProcessor.class, true, false);
-			List<BeanDefinitionRegistryPostProcessor> registryPostProcessorBeans =
-					new ArrayList<BeanDefinitionRegistryPostProcessor>(beanMap.values());
+			List<BeanDefinitionRegistryPostProcessor> registryPostProcessorBeans = new ArrayList<BeanDefinitionRegistryPostProcessor>(beanMap.values());
 			OrderComparator.sort(registryPostProcessorBeans);
 			for (BeanDefinitionRegistryPostProcessor postProcessor : registryPostProcessorBeans) {
+				//执行自定义实现BeanDefinitionRegistryPostProcessor接口的postProcessBeanDefinitionRegistry
 				postProcessor.postProcessBeanDefinitionRegistry(registry);
 			}
 			invokeBeanFactoryPostProcessors(registryPostProcessors, beanFactory);
+			////执行自定义实现BeanDefinitionRegistryPostProcessor接口的postProcessBeanFactory
 			invokeBeanFactoryPostProcessors(registryPostProcessorBeans, beanFactory);
 			invokeBeanFactoryPostProcessors(regularPostProcessors, beanFactory);
 			processedBeans.addAll(beanMap.keySet());

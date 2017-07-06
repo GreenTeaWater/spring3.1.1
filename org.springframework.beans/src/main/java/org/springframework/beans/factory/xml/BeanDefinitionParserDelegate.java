@@ -241,19 +241,21 @@ public class BeanDefinitionParserDelegate {
 
 
 	protected final Log logger = LogFactory.getLog(getClass());
-
+	//构造初始化为XmlReaderContext
 	private final XmlReaderContext readerContext;
 
 	private final DocumentDefaultsDefinition defaults = new DocumentDefaultsDefinition();
-
+	//add  new BeanEntry(beanName)
 	private final ParseState parseState = new ParseState();
-
+	//构造初始化为StandardServletEnvironment
 	private Environment environment;
 
 	/**
 	 * Stores all used bean names so we can enforce uniqueness on a per
 	 * beans-element basis. Duplicate bean ids/names may not exist within the
 	 * same level of beans element nesting, but may be duplicated across levels.
+	 * 
+	 * bean的id和别名的集合
 	 */
 	private final Set<String> usedNames = new HashSet<String>();
 
@@ -470,9 +472,9 @@ public class BeanDefinitionParserDelegate {
 		}
 
 		if (containingBean == null) {
-			checkNameUniqueness(beanName, aliases, ele);
+			checkNameUniqueness(beanName, aliases, ele); //将beanName和别名加入到usedNames属性中
 		}
-
+		//**** 解析Element元素将xml中配置的每一个bean封装成GenericBeanDefinition对象
 		AbstractBeanDefinition beanDefinition = parseBeanDefinitionElement(ele, beanName, containingBean);
 		if (beanDefinition != null) {
 			if (!StringUtils.hasText(beanName)) {
@@ -550,12 +552,12 @@ public class BeanDefinitionParserDelegate {
 			if (ele.hasAttribute(PARENT_ATTRIBUTE)) {
 				parent = ele.getAttribute(PARENT_ATTRIBUTE);
 			}
-			AbstractBeanDefinition bd = createBeanDefinition(className, parent);
+			AbstractBeanDefinition bd = createBeanDefinition(className, parent);//创建beanDefinition的具体实现 GenericBeanDefinition
 
-			parseBeanDefinitionAttributes(ele, beanName, containingBean, bd);
-			bd.setDescription(DomUtils.getChildElementValueByTagName(ele, DESCRIPTION_ELEMENT));
+			parseBeanDefinitionAttributes(ele, beanName, containingBean, bd);//将xml中bean的属性加入到GenericBeanDefinition中
+			bd.setDescription(DomUtils.getChildElementValueByTagName(ele, DESCRIPTION_ELEMENT)); //set bean 描述
 
-			parseMetaElements(ele, bd);
+			parseMetaElements(ele, bd); //将xml中bean的子元素属性加入GenericBeanDefinition中
 			parseLookupOverrideSubElements(ele, bd.getMethodOverrides());
 			parseReplacedMethodSubElements(ele, bd.getMethodOverrides());
 

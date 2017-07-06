@@ -27,21 +27,21 @@ import org.springframework.beans.factory.parsing.DefaultsDefinition;
  * @since 2.0.2
  */
 public class DocumentDefaultsDefinition implements DefaultsDefinition {
-
+	//在 BeanDefinitionParserDelegate类中的initDefaults方法解析XML元素赋值
 	private String lazyInit;
-
+	//在 BeanDefinitionParserDelegate类中的initDefaults方法解析XML元素赋值
 	private String merge;
-
+	//在 BeanDefinitionParserDelegate类中的initDefaults方法解析XML元素赋值
 	private String autowire;
-
+	//在 BeanDefinitionParserDelegate类中的initDefaults方法解析XML元素赋值
 	private String dependencyCheck;
-
+	//在 BeanDefinitionParserDelegate类中的initDefaults方法解析XML元素赋值
 	private String autowireCandidates;
-
+	//在 BeanDefinitionParserDelegate类中的initDefaults方法解析XML元素赋值
 	private String initMethod;
-
+	//在 BeanDefinitionParserDelegate类中的initDefaults方法解析XML元素赋值
 	private String destroyMethod;
-
+	//在 BeanDefinitionParserDelegate类中的initDefaults方法解析XML元素赋值
 	private Object source;
 
 

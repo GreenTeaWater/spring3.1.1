@@ -28,7 +28,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.beans.factory.BeanCreationNotAllowedException;
 import org.springframework.beans.factory.BeanCurrentlyInCreationException;
@@ -82,7 +81,21 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 	/** Logger available to subclasses */
 	protected final Log logger = LogFactory.getLog(getClass());
 
-	/** Cache of singleton objects: bean name --> bean instance */
+	/** Cache of singleton objects: bean name --> bean instance 
+	 * add 元素  [environment : StandardServletEnvironment]
+	 * add 元素  [systemProperties : 系统的相关属性 System.getProperties() ]
+	 * add 元素  [systemEnvironment : 系统环境变量 System.getenv() ]
+	 * 
+	 * add 元素  [servletContext : ApplicationContextFacade ]
+	 * add 元素  [servletConfig : null]
+	 * 
+	 * add 元素  [contextParameters : classpath*:applicationContext.xml]
+	 * 
+	 * add 元素 XXXX
+	 * 
+	 * add 元素 applicationEventMulticaster：SimpleApplicationEventMulticaster
+	 * 
+	 * */
 	private final Map<String, Object> singletonObjects = new ConcurrentHashMap<String, Object>();
 
 	/** Cache of singleton factories: bean name --> ObjectFactory */
@@ -91,7 +104,9 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 	/** Cache of early singleton objects: bean name --> bean instance */
 	private final Map<String, Object> earlySingletonObjects = new HashMap<String, Object>();
 
-	/** Set of registered singletons, containing the bean names in registration order */
+	/** Set of registered singletons, containing the bean names in registration order 
+	 * add 元素 environment ，systemProperties ，systemEnvironment ,contextParameters
+	 * */
 	private final Set<String> registeredSingletons = new LinkedHashSet<String>(16);
 
 	/** Names of beans that are currently in creation */

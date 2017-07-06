@@ -21,14 +21,14 @@ package org.springframework.beans.factory.parsing;
  * providing no-op implementations of all callback methods.
  *
  * @author Juergen Hoeller
- * @since 2.0
+ * @since 2.0 
  */
 public class EmptyReaderEventListener implements ReaderEventListener {
-
+	//BeanDefinitionParserDelegate中会调用
 	public void defaultsRegistered(DefaultsDefinition defaultsDefinition) {
 		// no-op
 	}
-
+	//加入beanFactory后发送注册事件
 	public void componentRegistered(ComponentDefinition componentDefinition) {
 		// no-op
 	}

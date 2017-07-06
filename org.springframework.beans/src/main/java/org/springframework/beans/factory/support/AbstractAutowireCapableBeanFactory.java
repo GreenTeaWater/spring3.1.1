@@ -135,9 +135,20 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	 */
 	private final Set<Class> ignoredDependencyTypes = new HashSet<Class>();
 
-	/**BeanFactoryAware.class,BeanFactoryAware.class,BeanClassLoaderAware.class的class字节码
+	/**
+	 * 创建DefaultListableBeanFactory时构造初始化将BeanFactoryAware.class,BeanFactoryAware.class,BeanClassLoaderAware.class的class字节码
+	 * 
 	 * Dependency interfaces to ignore on dependency check and autowire, as Set of
 	 * Class objects. By default, only the BeanFactory interface is ignored.
+	 * add 元素 ResourceLoaderAware         AbstractApplicationContext.refresh中prepareBeanFactory方法内
+	 * add 元素 ApplicationEventPublisherAware.class 
+	 * add 元素 MessageSourceAware.class
+	 * add 元素 ApplicationContextAware.class
+	 * add 元素 EnvironmentAware.class
+	 * 
+	 * add 元素 ServletContextAware.class   AbstractApplicationContext.refresh中postProcessBeanFactory方法内
+	 * add 元素 ServletConfigAware.class
+	 * 
 	 */
 	private final Set<Class> ignoredDependencyInterfaces = new HashSet<Class>();
 
