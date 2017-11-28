@@ -109,6 +109,7 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 
 	private boolean setMetadataReaderFactoryCalled = false;
 
+	//add  DefaultListableBeanFactory的HashCode
 	private final Set<Integer> registriesPostProcessed = new HashSet<Integer>();
 
 	private final Set<Integer> factoriesPostProcessed = new HashSet<Integer>();
@@ -189,7 +190,7 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 	 * Derive further bean definitions from the configuration classes in the registry.
 	 */
 	public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) {
-		BeanDefinitionReaderUtils.registerWithGeneratedName(new RootBeanDefinition(ImportAwareBeanPostProcessor.class), registry);
+ 		BeanDefinitionReaderUtils.registerWithGeneratedName(new RootBeanDefinition(ImportAwareBeanPostProcessor.class), registry);
 		int registryId = System.identityHashCode(registry);
 		if (this.registriesPostProcessed.contains(registryId)) {
 			throw new IllegalStateException(

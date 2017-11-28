@@ -93,8 +93,15 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 	 * 
 	 * add 元素 XXXX
 	 * 
-	 * add 元素 applicationEventMulticaster：SimpleApplicationEventMulticaster
-	 * 
+	 
+	 * add 元素 contextAttributes：javax.servlet.context.tempdir=D:\Program Files\java\apache-tomcat-7.0.77\work\Catalina\localhost\cloud-personal, org.apache.catalina.resources=org.apache.naming.resources.ProxyDirContext@596b5d42, org.springframework.web.context.support.ServletContextScope=org.springframework.web.context.support.ServletContextScope@69c338cc, org.apache.tomcat.util.scan.MergedWebXml=<?xml version="1.0" encoding="UTF-8"?>
+									<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+									         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+									         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+									         version="2.5"
+									         metadata-complete="true">
+
+	* add 元素 applicationEventMulticaster：SimpleApplicationEventMulticaster 
 	 * */
 	private final Map<String, Object> singletonObjects = new ConcurrentHashMap<String, Object>();
 
@@ -105,7 +112,7 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 	private final Map<String, Object> earlySingletonObjects = new HashMap<String, Object>();
 
 	/** Set of registered singletons, containing the bean names in registration order 
-	 * add 元素 environment ，systemProperties ，systemEnvironment ,contextParameters
+	 * add 元素 environment ，systemProperties ，systemEnvironment ,contextParameters ,servletContext ,contextAttributes ,applicationEventMulticaster
 	 * */
 	private final Set<String> registeredSingletons = new LinkedHashSet<String>(16);
 
@@ -236,7 +243,7 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 				if (recordSuppressedExceptions) {
 					this.suppressedExceptions = new LinkedHashSet<Exception>();
 				}
-				try {
+				try {//***** 创建bean实例
 					singletonObject = singletonFactory.getObject();
 				}
 				catch (BeanCreationException ex) {

@@ -160,7 +160,7 @@ public class ContextLoader {
 		// Load default strategy implementations from properties file.
 		// This is currently strictly internal and not meant to be customized
 		// by application developers.
-		try {
+		try {//加载 org/springframework/web/context/ContextLoader.properties配置文件，确定spring上下文的实现类
 			ClassPathResource resource = new ClassPathResource(DEFAULT_STRATEGIES_PATH, ContextLoader.class);
 			defaultStrategies = PropertiesLoaderUtils.loadProperties(resource);
 		}
@@ -184,6 +184,7 @@ public class ContextLoader {
 
 	/**
 	 * The root WebApplicationContext instance that this loader manages.
+	 * 实例化的spring上下文容器 Root WebApplicationContext: startup date [Thu Jan 01 08:00:00 CST 1970]; root of context hierarchy
 	 */
 	private WebApplicationContext context;
 
@@ -263,7 +264,7 @@ public class ContextLoader {
 	public WebApplicationContext initWebApplicationContext(ServletContext servletContext) {
 		if (servletContext.getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE) != null) {
 			throw new IllegalStateException(
-					"不能初始化上下文，因为已经有一个根应用程序上下文来检查您的web.xml中是否有多个ContextLoader定义。"
+					"不能初始化上下文，因为已经有一个根应用程序上下文来检查您的web.xml，是否有多个ContextLoader定义。"
 					+ "[Cannot initialize context because there is already a root application context present - " +
 					"check whether you have multiple ContextLoader* definitions in your web.xml!]");
 		}
@@ -282,8 +283,10 @@ public class ContextLoader {
 				this.context = createWebApplicationContext(servletContext);
 			}
 			if (this.context instanceof ConfigurableWebApplicationContext) {
+				//配置和刷新到 spring上下文容器 ***** 你想知道的全在这了~
 				configureAndRefreshWebApplicationContext((ConfigurableWebApplicationContext)this.context, servletContext);
 			}
+			//将spring上下文容器放入tomcat容器中
 			servletContext.setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, this.context);
 
 			ClassLoader ccl = Thread.currentThread().getContextClassLoader();
@@ -362,13 +365,13 @@ public class ContextLoader {
 				wac.setId(idParam);
 			}
 			else {
-				// Generate default id...
+				// Generate default id... tomcat支持的servlet版本   tomcat7 = servlet3
 				if (sc.getMajorVersion() == 2 && sc.getMinorVersion() < 5) {//分别返回当前servlet容器支持的Servlet规范最高版本和最低版本。
 					// Servlet <= 2.4: resort to name specified in web.xml, if any.
 					wac.setId(ConfigurableWebApplicationContext.APPLICATION_CONTEXT_ID_PREFIX +
 							ObjectUtils.getDisplayString(sc.getServletContextName()));
 				}
-				else {//org.springframework.web.context.WebApplicationContext:/learn-framework
+				else {//org.springframework.web.context.WebApplicationContext:/learn-framework（项目名）
 					wac.setId(ConfigurableWebApplicationContext.APPLICATION_CONTEXT_ID_PREFIX +
 							ObjectUtils.getDisplayString(sc.getContextPath()));
 				}
@@ -376,6 +379,7 @@ public class ContextLoader {
 		}
 
 		// Determine parent for root web application context, if any.[确定根web应用程序上下文的父元素，如果有的话。]
+		//spring的parent =  null ， springMVC的parent = spring
 		ApplicationContext parent = loadParentContext(sc);
 
 		wac.setParent(parent);
@@ -384,7 +388,7 @@ public class ContextLoader {
 		if (initParameter != null) {
 			wac.setConfigLocation(initParameter);
 		}
-		customizeContext(sc, wac);
+		customizeContext(sc, wac);//貌似啥也没干，逻辑复杂，回头再看
 		wac.refresh();
 	}
 

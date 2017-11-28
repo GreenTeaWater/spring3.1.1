@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
@@ -28,7 +29,6 @@ import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.BeanDefinitionStoreException;
 import org.springframework.beans.factory.parsing.EmptyReaderEventListener;
@@ -111,17 +111,17 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 	private ReaderEventListener eventListener = new EmptyReaderEventListener();
 
 	private SourceExtractor sourceExtractor = new NullSourceExtractor();
-
+	//初始化为 new DefaultNamespaceHandlerResolver(getResourceLoader().getClassLoader());
 	private NamespaceHandlerResolver namespaceHandlerResolver;
 
 	private DocumentLoader documentLoader = new DefaultDocumentLoader();
-	//ResourceEntityResolver(this)  this = xmlWebApplicationContext
+	//new ResourceEntityResolver(this)  this =Root xmlWebApplicationContext
   	private EntityResolver entityResolver;
 
 	private ErrorHandler errorHandler = new SimpleSaxErrorHandler(logger);
 
 	private final XmlValidationModeDetector validationModeDetector = new XmlValidationModeDetector();
-
+	//将当前解析的xml放入
 	private final ThreadLocal<Set<EncodedResource>> resourcesCurrentlyBeingLoaded =
 			new NamedThreadLocal<Set<EncodedResource>>("XML bean definition resources currently being loaded");
 
@@ -303,7 +303,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 	}
 
 	/**
-	 * Load bean definitions from the specified XML file.
+	 * Load bean definitions from the specified XML file. 从配置文件xml中加载bean定义
 	 * @param encodedResource the resource descriptor for the XML file,
 	 * allowing to specify an encoding to use for parsing the file
 	 * @return the number of bean definitions found

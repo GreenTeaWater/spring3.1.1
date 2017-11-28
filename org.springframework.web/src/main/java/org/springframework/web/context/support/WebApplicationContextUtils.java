@@ -280,7 +280,7 @@ public abstract class WebApplicationContextUtils {
 	 * Factory that exposes the current request object on demand.
 	 */
 	@SuppressWarnings("serial")
-	private static class RequestObjectFactory implements ObjectFactory<ServletRequest>, Serializable {
+ 	private static class RequestObjectFactory implements ObjectFactory<ServletRequest>, Serializable {
 
 		public ServletRequest getObject() {
 			return currentRequestAttributes().getRequest();

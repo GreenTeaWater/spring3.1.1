@@ -32,9 +32,9 @@ import org.springframework.core.Ordered;
  * @since 2.0.5
  */
 public class SourceFilteringListener implements SmartApplicationListener {
-
+	//赋值为：WebApplicationContext for namespace 'dispatcherServlet-servlet': startup date [Thu Jan 01 08:00:00 CST 1970]; parent: Root WebApplicationContext
 	private final Object source;
-
+	//赋值为：new GenericApplicationListenerAdapter(org.springframework.web.servlet.FrameworkServlet$ContextRefreshListener@2e618893)
 	private SmartApplicationListener delegate;
 
 

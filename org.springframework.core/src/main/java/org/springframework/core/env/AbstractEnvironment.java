@@ -93,7 +93,7 @@ public abstract class AbstractEnvironment implements ConfigurableEnvironment {
 
 	private Set<String> defaultProfiles =
 			new LinkedHashSet<String>(this.getReservedDefaultProfiles());
-
+//初始化xmlWebApplicationContext时[servletConfigInitParams,servletContextInitParams,jndiProperties,systemProperties,systemEnvironment]
 	private final MutablePropertySources propertySources =
 			new MutablePropertySources(this.logger);
 

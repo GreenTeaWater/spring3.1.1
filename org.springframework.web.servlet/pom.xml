@@ -13,30 +13,8 @@
     <relativePath>../org.springframework.spring-parent</relativePath>
     <version>3.1.1.RELEASE</version>
   </parent>
-  <licenses>
-    <license>
-      <name>The Apache Software License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
-  <profiles>
-    <profile>
-      <id>tiger</id>
-      <activation>
-        <jdk>1.5</jdk>
-      </activation>
-      <dependencies>
-        <dependency>
-          <groupId>stax</groupId>
-          <artifactId>stax</artifactId>
-          <version>1.2.0</version>
-        </dependency>
-      </dependencies>
-    </profile>
-  </profiles>
   <dependencies>
-    <dependency>
+   <dependency>
       <groupId>rome</groupId>
       <artifactId>rome</artifactId>
       <version>1.0</version>
@@ -54,13 +32,13 @@
       <version>2.3.15</version>
       <optional>true</optional>
     </dependency>
-    <dependency>
+     <dependency>
       <groupId>javax.el</groupId>
       <artifactId>el-api</artifactId>
       <version>1.0</version>
       <scope>provided</scope>
     </dependency>
-    <dependency>
+     <dependency>
       <groupId>org.apache.tomcat</groupId>
       <artifactId>tomcat-servlet-api</artifactId>
       <version>7.0.8</version>
@@ -72,19 +50,19 @@
       <version>2.1</version>
       <scope>provided</scope>
     </dependency>
-    <dependency>
+  <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>jstl</artifactId>
       <version>1.1.2</version>
       <scope>provided</scope>
     </dependency>
-    <dependency>
+       <dependency>
       <groupId>net.sourceforge.jexcelapi</groupId>
       <artifactId>jxl</artifactId>
       <version>2.6.3</version>
       <optional>true</optional>
-    </dependency>
-    <dependency>
+    </dependency> 
+   <!--  <dependency>
       <groupId>jasperreports</groupId>
       <artifactId>jasperreports</artifactId>
       <version>2.0.5</version>
@@ -95,9 +73,9 @@
           <artifactId>xml-apis</artifactId>
         </exclusion>
       </exclusions>
-    </dependency>
-    <!-- common logging dependency is in spring-core -->
-    <dependency>
+    </dependency>  -->
+
+ <dependency>
       <groupId>org.apache.poi</groupId>
       <artifactId>poi</artifactId>
       <version>3.0.2-FINAL</version>
@@ -133,7 +111,7 @@
       <version>1.5</version>
       <optional>true</optional>
     </dependency>
-    <dependency>
+     <dependency>
       <groupId>velocity-tools</groupId>
       <artifactId>velocity-tools-view</artifactId>
       <version>1.4</version>
@@ -157,7 +135,7 @@
       <version>${project.version}</version>
       <scope>compile</scope>
     </dependency>
-    <dependency>
+     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
       <version>${project.version}</version>
@@ -253,7 +231,7 @@
         </exclusion>
       </exclusions>
     </dependency>
-    <dependency>
+   <dependency>
       <groupId>cglib</groupId>
       <artifactId>cglib-nodep</artifactId>
       <version>2.2</version>

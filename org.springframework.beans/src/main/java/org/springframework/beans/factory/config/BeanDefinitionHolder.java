@@ -36,7 +36,7 @@ import org.springframework.util.StringUtils;
  * @see org.springframework.beans.factory.support.ChildBeanDefinition
  */
 public class BeanDefinitionHolder implements BeanMetadataElement {
-	//每解析一个xml元素会new一个BeanDefinitionHolder对象 ，此属性为 GenericBeanDefinition
+	//每解析一个xml元素会new一个BeanDefinitionHolder对象 ，此属性为 GenericBeanDefinition或GenericBeanDefinition子类
 	private final BeanDefinition beanDefinition;
 	//com.zfx.framework.core.listener.UserListener#0
 	private final String beanName;

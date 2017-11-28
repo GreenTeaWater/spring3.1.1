@@ -73,6 +73,9 @@ public abstract class AbstractPropertyAccessor extends PropertyEditorRegistrySup
 				// This method may throw any BeansException, which won't be caught
 				// here, if there is a critical failure such as no matching field.
 				// We can attempt to deal only with less serious exceptions.
+				//这个方法可能抛出任何beansexception，不会被抓住
+				//在这里，如果有一个严重的失败，比如没有匹配字段。
+				//我们可以只处理不太严重的例外。 
 				setPropertyValue(pv);
 			}
 			catch (NotWritablePropertyException ex) {

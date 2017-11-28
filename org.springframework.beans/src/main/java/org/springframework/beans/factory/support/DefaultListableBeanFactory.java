@@ -150,7 +150,9 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 	 * */
 	private final Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<String, BeanDefinition>();
 
-	/** List of bean definition names, in registration order */
+	/** List of bean definition names, in registration order 
+	 * 解析spring配置文件时候写入的
+	 * */
 	private final List<String> beanDefinitionNames = new ArrayList<String>();
 
 	/** Whether bean definition metadata may be cached for all beans  设置为true */

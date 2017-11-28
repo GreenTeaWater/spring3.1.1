@@ -183,7 +183,7 @@ public class PathMatchingResourcePatternResolver implements ResourcePatternResol
 		}
 	}
 
-
+	//spring启动时初始化为 new DefaultResourceLoader(Root xmlApplicatipnContext);
 	private final ResourceLoader resourceLoader;
 
 	private PathMatcher pathMatcher = new AntPathMatcher();

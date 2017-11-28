@@ -40,7 +40,7 @@ import javax.servlet.ServletContextListener;
  */
 public class ContextLoaderListener extends ContextLoader implements ServletContextListener {
 
-	private ContextLoader contextLoader;
+	private ContextLoader contextLoader; //tomcat启动后初始化为this = org.springframework.web.context.ContextLoaderListener@1a359d48
 
 
 	/**
@@ -106,7 +106,7 @@ public class ContextLoaderListener extends ContextLoader implements ServletConte
 	public void contextInitialized(ServletContextEvent event) {
 		this.contextLoader = createContextLoader();
 		if (this.contextLoader == null) {
-			this.contextLoader = this;
+			this.contextLoader = this; 
 		}
 		this.contextLoader.initWebApplicationContext(event.getServletContext());
 	}

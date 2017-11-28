@@ -37,7 +37,7 @@ import org.springframework.util.StringUtils;
  */
 public class MutablePropertyValues implements PropertyValues, Serializable {
 
-	private final List<PropertyValue> propertyValueList;
+	private final List<PropertyValue> propertyValueList; //PropertyValueµÄ¼¯ºÏ£¬
 
 	private Set<String> processedProperties;
 

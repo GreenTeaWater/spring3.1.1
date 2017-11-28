@@ -18,6 +18,8 @@ package org.springframework.beans.factory.xml.support;
 
 import static org.junit.Assert.*;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.springframework.beans.factory.xml.DefaultNamespaceHandlerResolver;
 import org.springframework.beans.factory.xml.NamespaceHandler;
@@ -33,10 +35,15 @@ public class DefaultNamespaceHandlerResolverTests {
 
 	@Test
 	public void testResolvedMappedHandler() {
-		DefaultNamespaceHandlerResolver resolver = new DefaultNamespaceHandlerResolver(getClass().getClassLoader());
-		NamespaceHandler handler = resolver.resolve("http://www.springframework.org/schema/util");
-		assertNotNull("Handler should not be null.", handler);
-		assertEquals("Incorrect handler loaded", UtilNamespaceHandler.class, handler.getClass());
+		Log log = LogFactory.getLog(getClass());
+		System.out.println(log);
+		log.info("111111");
+//		DefaultNamespaceHandlerResolver resolver = new DefaultNamespaceHandlerResolver(getClass().getClassLoader());
+//		LogFactory.getLog(getClass());
+//		resolver.toString();
+//		NamespaceHandler handler = resolver.resolve("http://www.springframework.org/schema/tx");
+//		assertNotNull("Handler should not be null.", handler);
+//		assertEquals("Incorrect handler loaded", UtilNamespaceHandler.class, handler.getClass());
 	}
 
 	@Test

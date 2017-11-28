@@ -39,7 +39,7 @@ public class CachingMetadataReaderFactory extends SimpleMetadataReaderFactory {
 
 
 	private volatile int cacheLimit = DEFAULT_CACHE_LIMIT;
-
+	//add 元素  LoginServiceImpl 
 	private final Map<Resource, MetadataReader> classReaderCache =
 			new LinkedHashMap<Resource, MetadataReader>(DEFAULT_CACHE_LIMIT, 0.75f, true) {
 				@Override

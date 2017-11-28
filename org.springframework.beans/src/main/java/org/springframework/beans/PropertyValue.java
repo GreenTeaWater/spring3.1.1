@@ -41,9 +41,9 @@ import org.springframework.util.ObjectUtils;
  */
 public class PropertyValue extends BeanMetadataAttributeAccessor implements Serializable {
 
-	private final String name;
+	private final String name; //contextConfigLocation  springMVC初始化时赋值过
 
-	private final Object value;
+	private final Object value; //classpath*:/spring-mvc/spring-mvc.xml
 
 	private Object source;
 
@@ -53,13 +53,20 @@ public class PropertyValue extends BeanMetadataAttributeAccessor implements Seri
 
 	private Object convertedValue;
 
-	/** Package-visible field that indicates whether conversion is necessary */
+	/** Package-visible field that indicates whether conversion is necessary 
+	 * 表示   classpath*:/spring-mvc/spring-mvc.xml  这个配置是否有转换的必要
+	 * 设置为：false
+	 * */
 	volatile Boolean conversionNecessary;
 
-	/** Package-visible field for caching the resolved property path tokens */
+	/** Package-visible field for caching the resolved property path tokens 
+	 * 设置为：org.springframework.beans.BeanWrapperImpl$PropertyTokenHolder@28604e66
+	 * */
 	volatile Object resolvedTokens;
 
-	/** Package-visible field for caching the resolved PropertyDescriptor */
+	/** Package-visible field for caching the resolved PropertyDescriptor 
+	 * 设置为：org.springframework.beans.GenericTypeAwarePropertyDescriptor[name=contextConfigLocation]
+	 * */
 	volatile PropertyDescriptor resolvedDescriptor;
 
 

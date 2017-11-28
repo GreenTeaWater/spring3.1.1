@@ -56,10 +56,10 @@ import org.springframework.util.Assert;
 public abstract class PropertySource<T> {
 
 	protected final Log logger = LogFactory.getLog(this.getClass());
+	//name 和 source 一一对应
+	protected final String name;// servletConfigInitParams、servletContextInitParams、jndiProperties、systemProperties、systemEnvironment
 
-	protected final String name;
-
-	protected final T source;
+	protected final T source;//Object、Object、JndiLocatorDelegate.createDefaultResourceRefLocator()、getSystemProperties()、 getSystemEnvironment()
 
 	/**
 	 * Create a new {@code PropertySource} with the given name and source object.

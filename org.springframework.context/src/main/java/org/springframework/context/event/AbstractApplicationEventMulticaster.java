@@ -219,6 +219,7 @@ public abstract class AbstractApplicationEventMulticaster implements Application
 
 		public final Set<ApplicationListener> applicationListeners;
 
+		//add 实现了ApplicationContext接口的类
 		public final Set<String> applicationListenerBeans;
 
 		private final boolean preFiltered;

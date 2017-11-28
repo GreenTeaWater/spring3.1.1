@@ -157,6 +157,16 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	 * add 元素  实现了beanPostProcessor接口的类
 	 * add 元素 new ApplicationListenerDetector()
 	 * 
+	 * add 元素 AbstractApplicationContext$BeanPostProcessorChecker
+	 * 
+	 * add 元素 org.springframework.context.annotation.ConfigurationClassPostProcessor$ImportAwareBeanPostProcessor@646d5274, 
+	 * add 元素 org.springframework.context.annotation.CommonAnnotationBeanPostProcessor@7b0229a2, 
+	 * add 元素 org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor@222e875, 
+	 * add 元素 org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor@17ab2fe0
+	 * 
+	 * add  实现了BeanPostProcessor 接口的bean
+	 * 
+	 * 
 	 *  */
 	private final List<BeanPostProcessor> beanPostProcessors = new ArrayList<BeanPostProcessor>();
 
@@ -182,7 +192,10 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	private final Map<String, RootBeanDefinition> mergedBeanDefinitions =
 			new ConcurrentHashMap<String, RootBeanDefinition>();
 
-	/** Names of beans that have already been created at least once */
+	/** Names of beans that have already been created at least once 
+	 * 马上要创建的bean，鸡冻
+	 * 
+	 * */
 	private final Set<String> alreadyCreated = Collections.synchronizedSet(new HashSet<String>());
 
 	/** Names of beans that are currently in creation */
@@ -255,7 +268,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 		Object bean;
 
 		// Eagerly check singleton cache for manually registered singletons.
-		Object sharedInstance = getSingleton(beanName);
+		Object sharedInstance = getSingleton(beanName);  //找了几个地方都没有
 		if (sharedInstance != null && args == null) {
 			if (logger.isDebugEnabled()) {
 				if (isSingletonCurrentlyInCreation(beanName)) {
@@ -276,7 +289,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 				throw new BeanCurrentlyInCreationException(beanName);
 			}
 
-			// Check if bean definition exists in this factory.
+			// Check if bean definition exists in this factory.  检查工厂中是否存在bean定义
 			BeanFactory parentBeanFactory = getParentBeanFactory();
 			if (parentBeanFactory != null && !containsBeanDefinition(beanName)) {
 				// Not found -> check parent.

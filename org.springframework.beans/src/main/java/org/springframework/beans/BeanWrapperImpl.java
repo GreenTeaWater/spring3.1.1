@@ -94,7 +94,7 @@ public class BeanWrapperImpl extends AbstractPropertyAccessor implements BeanWra
 
 
 	/** The wrapped object */
-	private Object object;
+	private Object object;  //置为 DispatcherServlet
 
 	private String nestedPath = "";
 
@@ -540,13 +540,13 @@ public class BeanWrapperImpl extends AbstractPropertyAccessor implements BeanWra
 	}
 
 	/**
-	 * Recursively navigate to return a BeanWrapper for the nested property path.
+	 * Recursively navigate to return a BeanWrapper for the nested property path.递归浏览返回的嵌套属性路径BeanWrapper
 	 * @param propertyPath property property path, which may be nested
 	 * @return a BeanWrapper for the target bean
 	 */
 	protected BeanWrapperImpl getBeanWrapperForPropertyPath(String propertyPath) {
 		int pos = PropertyAccessorUtils.getFirstNestedPropertySeparatorIndex(propertyPath);
-		// Handle nested properties recursively.
+		// Handle nested properties recursively.递归处理嵌套属性
 		if (pos > -1) {
 			String nestedProperty = propertyPath.substring(0, pos);
 			String nestedPath = propertyPath.substring(pos + 1);
@@ -921,7 +921,7 @@ public class BeanWrapperImpl extends AbstractPropertyAccessor implements BeanWra
 			if (nestedBw == this) {
 				pv.getOriginalPropertyValue().resolvedTokens = tokens;
 			}
-			nestedBw.setPropertyValue(tokens, pv);
+			nestedBw.setPropertyValue(tokens, pv);//设置 DispatcherServlet父类FrameworkServlet的contextConfigLocation属性值
 		}
 		else {
 			setPropertyValue(tokens, pv);

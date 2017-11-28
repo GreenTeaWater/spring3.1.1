@@ -191,7 +191,7 @@ public abstract class AbstractRefreshableWebApplicationContext extends AbstractR
 	 */
 	@Override
 	protected void initPropertySources() {
-		super.initPropertySources();
+		super.initPropertySources();//空
 		WebApplicationContextUtils.initServletPropertySources(
 				this.getEnvironment().getPropertySources(), this.servletContext,
 				this.servletConfig);

@@ -35,7 +35,7 @@ public class CompositeComponentDefinition extends AbstractComponentDefinition {
 	private final String name;
 
 	private final Object source;
-
+	//add  <context:component-scan标签扫描到的注解类  new BeanComponentDefinition(beanDefHolder)
 	private final List<ComponentDefinition> nestedComponents = new LinkedList<ComponentDefinition>();
 
 

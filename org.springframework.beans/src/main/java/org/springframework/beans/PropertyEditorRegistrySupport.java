@@ -87,7 +87,7 @@ public class PropertyEditorRegistrySupport implements PropertyEditorRegistry {
 
 	private ConversionService conversionService;
 
-	private boolean defaultEditorsActive = false;
+	private boolean defaultEditorsActive = false;   //springMVC启动的时候置为true
 
 	private boolean configValueEditorsActive = false;
 

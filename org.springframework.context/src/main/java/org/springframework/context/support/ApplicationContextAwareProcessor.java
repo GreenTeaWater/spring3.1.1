@@ -58,7 +58,7 @@ import org.springframework.util.StringValueResolver;
  * @see org.springframework.context.support.AbstractApplicationContext#refresh()
  */
 class ApplicationContextAwareProcessor implements BeanPostProcessor {
-
+	//初始化为XmlApplicationContext
 	private final ConfigurableApplicationContext applicationContext;
 
 

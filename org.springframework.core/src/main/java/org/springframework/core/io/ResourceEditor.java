@@ -49,9 +49,9 @@ import org.springframework.util.StringUtils;
  */
 public class ResourceEditor extends PropertyEditorSupport {
 
-	private final ResourceLoader resourceLoader;
+	private final ResourceLoader resourceLoader; //初始化为： org.springframework.web.context.support.ServletContextResourceLoader
 
-	private final PropertyResolver propertyResolver;
+	private final PropertyResolver propertyResolver; //初始化为：new StandardServletEnvironment()
 
 	private final boolean ignoreUnresolvablePlaceholders;
 

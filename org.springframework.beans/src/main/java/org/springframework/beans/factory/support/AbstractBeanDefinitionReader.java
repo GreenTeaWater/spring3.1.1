@@ -51,10 +51,11 @@ public abstract class AbstractBeanDefinitionReader implements EnvironmentCapable
 	private final BeanDefinitionRegistry registry;
 	//
 	//set值为xmlWebApplicationContext
+	//Root WebApplicationContext: startup date [Fri Nov 10 14:43:08 CST 2017]; root of context hierarchy
 	private ResourceLoader resourceLoader;
 
 	private ClassLoader beanClassLoader;
-	//XmlBeanDefinitionReader构造后set入值 StandardServletEnvironment
+	//XmlBeanDefinitionReader构造后set入值 StandardServletEnvironment   =  xmlApplicatinContext.environment
 	private Environment environment = new StandardEnvironment();
 
 	private BeanNameGenerator beanNameGenerator = new DefaultBeanNameGenerator();

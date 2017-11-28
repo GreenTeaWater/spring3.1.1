@@ -39,7 +39,11 @@ import org.springframework.util.StringUtils;
  */
 public abstract class AbstractRefreshableConfigApplicationContext extends AbstractRefreshableApplicationContext
 		implements BeanNameAware, InitializingBean {
-
+//	//配置的值为 web.xml中的 
+//	<context-param>
+//		<param-name>contextConfigLocation</param-name>
+//		<param-value>classpath*:/applicationContxt.xml</param-value>
+//	</context-param>
 	private String[] configLocations;
 
 	private boolean setIdCalled = false;

@@ -43,7 +43,7 @@ public class MutablePropertySources implements PropertySources {
 	static final String ILLEGAL_RELATIVE_ADDITION_MESSAGE = "PropertySource named [%s] cannot be added relative to itself";
 
 	private final Log logger;
-
+	//初始化xmlWebApplication时赋值
 	private final LinkedList<PropertySource<?>> propertySourceList = new LinkedList<PropertySource<?>>();
 
 

@@ -22,7 +22,6 @@ import java.util.Map;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinitionHolder;
 
@@ -46,6 +45,12 @@ public abstract class NamespaceHandlerSupport implements NamespaceHandler {
 	/**
 	 * Stores the {@link BeanDefinitionParser} implementations keyed by the
 	 * local name of the {@link Element Elements} they handle.
+	 * 
+	 *  * 子类  init方法赋值的，类似以下
+	 * registerBeanDefinitionParser("property-placeholder", new PropertyPlaceholderBeanDefinitionParser());
+	 * registerBeanDefinitionParser("property-override", new PropertyOverrideBeanDefinitionParser());
+	 * 
+	 * 
 	 */
 	private final Map<String, BeanDefinitionParser> parsers =
 			new HashMap<String, BeanDefinitionParser>();
@@ -127,6 +132,7 @@ public abstract class NamespaceHandlerSupport implements NamespaceHandler {
 	 * Subclasses can call this to register the supplied {@link BeanDefinitionParser} to
 	 * handle the specified element. The element name is the local (non-namespace qualified)
 	 * name.
+	 * 
 	 */
 	protected final void registerBeanDefinitionParser(String elementName, BeanDefinitionParser parser) {
 		this.parsers.put(elementName, parser);

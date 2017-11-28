@@ -79,7 +79,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 	protected final Log logger = LogFactory.getLog(getClass());
 	//调用registerBeanDefinitions方式赋值 XmlReaderContext
 	private XmlReaderContext readerContext;
-
+    //还是那个玩意 StandardServletEnvironment
 	private Environment environment;
 	//doRegisterBeanDefinitions方式创建new
 	private BeanDefinitionParserDelegate delegate;
@@ -145,7 +145,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 
 	protected BeanDefinitionParserDelegate createHelper(XmlReaderContext readerContext, Element root, BeanDefinitionParserDelegate parentDelegate) {
 		BeanDefinitionParserDelegate delegate = new BeanDefinitionParserDelegate(readerContext, environment);
-		delegate.initDefaults(root, parentDelegate);
+		delegate.initDefaults(root, parentDelegate); //解析配置文件中<beans> root节点的属性
 		return delegate;
 	}
 
@@ -177,14 +177,14 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 				Node node = nl.item(i);
 				if (node instanceof Element) {
 					Element ele = (Element) node;
-					if (delegate.isDefaultNamespace(ele)) {
+					if (delegate.isDefaultNamespace(ele)) {//元素标签命名空间是 beans、bean、import、alias
 						parseDefaultElement(ele, delegate);
 					}
 					else {
 						delegate.parseCustomElement(ele);
 					}
 				}
-			}
+			}                                                                                                                                                                                                                                                                                
 		}
 		else {
 			delegate.parseCustomElement(root);
